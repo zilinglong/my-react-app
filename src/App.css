@@ -1,3 +1,9 @@
+@import '~antd/dist/antd.css';
+* {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
 .App {
   text-align: center;
 }
@@ -35,4 +41,8 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+li a {
+  padding: 10px;
 }
