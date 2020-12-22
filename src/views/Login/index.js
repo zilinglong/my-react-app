@@ -37,12 +37,14 @@ class Login extends Component {
     };
     this.handleAdd = this.handleAdd.bind(this);
   }
+  // count + 1
   handleAdd() {
-    console.log('value:');
+    const { count } = this.state;
     this.setState({
-      count: this.state.count + 1
+      count: count + 1
     });
   }
+  // 删除
   handleDelete(key) {
     console.log('handleDelete:key', key);
     this.setState({
@@ -62,6 +64,7 @@ class Login extends Component {
   handleParams(value) {
     console.log('value:', value);
   }
+  // 新增、编辑弹窗
   handleCreateEdit(type) {
     console.log('handleCreateEdit');
     this.setState({
@@ -69,8 +72,7 @@ class Login extends Component {
       type: type
     });
   }
-  render() {
-    
+  render() {   
     const columns = [
       {
         title: 'Name',
@@ -89,14 +91,15 @@ class Login extends Component {
       },
       {
         title: 'Tags',
-        key: 'tags',
         dataIndex: 'tags',
+        key: 'tags',
         render: tags => (
           <>
             {tags.map(tag => {
-              let color = tag.length > 5 ? 'geekblue' : 'green';
+              // 某个单词的长度大于5，则蓝色，否则绿色；如果是loser，则是红色
+              let color = tag.length > 5 ? '#00f' : '#0f0';
               if (tag === 'loser') {
-                color = 'volcano';
+                color = '#f00';
               }
               return (
                 <Tag color={color} key={tag}>
@@ -118,10 +121,15 @@ class Login extends Component {
         ),
       },
     ];
-    const { dialogVisible, type, dataSource } = this.state;
+    const { dialogVisible, type, dataSource, count } = this.state;
     return (
       <div id="login">
-        <p className="title">登录页面: { this.state.count}</p>    
+
+        <p className="title">
+          登录页面: {count} 
+          <Button type="primary" onClick={this.handleAdd} className="btn-add">count+1</Button>
+        </p>    
+
         <section className="btn-group">
           <Button type="primary" onClick={() => this.handleCreateEdit('create')}>新增数据</Button>
         </section>
