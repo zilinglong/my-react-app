@@ -1,0 +1,6 @@
+@mixin flex($jusCon:center) {
+  display: flex;
+  flex-direction: row;
+  justify-content: $jusCon;
+  align-items: center;
+}

@@ -1,3 +1,5 @@
+// 将数据提出来之后，action相关的方法也需要提出来，比较麻烦，因此废弃了该方法
+import React from 'react';
 import { Tag, Space } from 'antd';
 export const dataSource = [
   {
@@ -64,7 +66,7 @@ export const columns = [
     key: 'action',
     render: (text, record) => (
       <Space size="middle">
-        <a>Invite {record.name}</a>
+        <a onClick={() => this.handleCreate('edit')}>edit-{record.name}</a>
         <a>Delete</a>
       </Space>
     ),

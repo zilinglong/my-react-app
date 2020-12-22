@@ -1,0 +1,8 @@
+@import '../../styles/mixin.scss';
+.btn-group {
+  @include flex(flex-end);
+  margin-bottom: 20px;
+}
+.title {
+  color: #f00;
+}
