@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 // import { Modal, Button, Form, Select, Input } from 'antd';
-import { Modal, Form, Select, InputNumber, Switch, Radio,  Slider, Button, Upload, Rate, Checkbox, Row, Col } from 'antd';
+import { Modal, Form, Select, InputNumber, Switch, Radio,  Slider, Button, Upload, Rate, Checkbox, Row, Col, Space } from 'antd';
 import { UploadOutlined, InboxOutlined } from '@ant-design/icons';
 const { Option } = Select;
 
@@ -52,9 +52,22 @@ class DialogCreateEdit extends Component {
     console.log("okHandle -> fieldsValue", fieldsValue)
     this.setVisible(false);
   };
+  // 清空
   onReset = () => {
     this.form.current.resetFields();
   };
+  // 填写数据
+  onFill = () => {
+    this.form.current.setFieldsValue({
+      ['input-number']: 3,
+      ['checkbox-group']: ['A', 'B'],
+      rate: 3.5,
+      slider: 12,
+      'select-country': 'china',
+      'select-multiple': ['red'],
+      'radio-button': 'b'
+    });
+  }
   handleCancel = () => {
     console.log('handleCancel');
     this.setVisible(false);
@@ -105,15 +118,15 @@ class DialogCreateEdit extends Component {
               name="validate_other"
               {...formItemLayout}
               onFinish={this.onFinish}
-              initialValues={{
-                ['input-number']: 3,
-                ['checkbox-group']: ['A', 'B'],
-                rate: 3.5,
-                slider: 12,
-                'select-country': 'china',
-                'select-multiple': ['red'],
-                'radio-button': 'b'
-              }}
+              // initialValues={{
+              //   ['input-number']: 3,
+              //   ['checkbox-group']: ['A', 'B'],
+              //   rate: 3.5,
+              //   slider: 12,
+              //   'select-country': 'china',
+              //   'select-multiple': ['red'],
+              //   'radio-button': 'b'
+              // }}
             >
               <Form.Item label="Plain Text">
                 <span className="ant-form-text">China</span>
@@ -290,9 +303,14 @@ class DialogCreateEdit extends Component {
               <Form.Item
                 {...tailLayout}
               >
-                <Button type="primary" htmlType="submit">
-                  Submit
-                </Button>
+                <Space>
+                  <Button type="primary" onClick={this.onReset}>
+                    清空
+                  </Button>
+                  <Button type="primary" onClick={this.onFill}>
+                    填数
+                  </Button>
+                </Space>
               </Form.Item>
             </Form>
           </section>
