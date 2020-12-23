@@ -18,7 +18,8 @@ class DialogCreateEdit extends Component {
     super(props);
     this.state = {
       visible: props.dialogVisible,
-      type: props.type
+      type: props.type,
+      colorList: ['red', 'green', 'blue']
     };
   }
   // const [visible, setVisible] = React.useState(false);
@@ -68,7 +69,7 @@ class DialogCreateEdit extends Component {
   };
 
   render() {
-    const { visible, type } = this.state;
+    const { visible, type, colorList } = this.state;
     // // 设置label和表单区域占据的宽度
     const labelCol = 8;
     const formItemLayout = {
@@ -146,9 +147,10 @@ class DialogCreateEdit extends Component {
                 ]}
               >
                 <Select mode="multiple" placeholder="Please select favourite colors">
-                  <Option value="red">Red</Option>
+                  {colorList.map((color,idx) => <Option key={idx} value={color}>{color}</Option>)}
+                  {/* <Option value="red">Red</Option>
                   <Option value="green">Green</Option>
-                  <Option value="blue">Blue</Option>
+                  <Option value="blue">Blue</Option> */}
                 </Select>
               </Form.Item>
 
