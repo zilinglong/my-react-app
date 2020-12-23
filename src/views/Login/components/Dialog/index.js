@@ -23,19 +23,21 @@ class DialogCreateEdit extends Component {
       type: nextProps.type
     });
   }
-  showModal = () => {
-    this.setVisible(true);
-  };
   setVisible = (value) => {
     this.setState({
       visible: value
     });
-  }
+  };
+  showModal = () => {
+    this.setVisible(true);
+  };
   handleOk = () => {
+    console.log('handleOk');
     this.setVisible(false);
   };
 
   handleCancel = () => {
+    console.log('handleCancel');
     this.setVisible(false);
   };
   
@@ -49,14 +51,19 @@ class DialogCreateEdit extends Component {
 
   render() {
     const { visible, type } = this.state;
+    // 设置label和表单区域占据的宽度
+    const labelCol = 6;
     const layout = {
-      labelCol: { span: 8 },
+      labelCol: { span: labelCol },
       wrapperCol: { span: 16 },
+    };
+    const tailLayout = {
+      wrapperCol: { offset: labelCol, span: 16 },
     };
     return (
       <div>
         <Button type="primary" onClick={this.showModal}>
-          Open Modal with async logic
+          打开弹窗
         </Button>
         <Modal
           title={`${type === 'create' ? '新增' : '编辑'}数据`}
@@ -64,34 +71,42 @@ class DialogCreateEdit extends Component {
           onOk={this.handleOk}
           onCancel={this.handleCancel}
         >
-          <p>ddd</p>
-          <Form
-            {...layout}
-            name="basic"
-            initialValues={{ remember: true }}
-            onFinish={this.onFinish}
-            onFinishFailed={this.onFinishFailed}
-          >
-            <Form.Item
-              label="Username"
-              name="username"
-              rules={[{ required: true, message: 'Please input your username!' }]}
+          <section className="form-container">
+            <Form
+              {...layout}
+              name="basic"
+              className="form"
+              initialValues={{ remember: true }}
+              onFinish={this.onFinish}
+              onFinishFailed={this.onFinishFailed}
             >
-              <Input />
-            </Form.Item>
+              <Form.Item
+                label="Username"
+                name="username"
+                rules={[{ required: true, message: 'Please input your username!' }]}
+              >
+                <Input />
+              </Form.Item>
 
-            <Form.Item
-              name="select"
-              label="Select"
-              hasFeedback
-              rules={[{ required: true, message: 'Please select your country!' }]}
-            >
-              <Select placeholder="Please select a country">
-                <Option value="china">China</Option>
-                <Option value="usa">U.S.A</Option>
-              </Select>
-            </Form.Item>
-          </Form>
+              <Form.Item
+                name="select"
+                label="Select"
+                hasFeedback
+                rules={[{ required: true, message: 'Please select your country!' }]}
+              >
+                <Select placeholder="Please select a country">
+                  <Option value="china">China</Option>
+                  <Option value="usa">U.S.A</Option>
+                </Select>
+              </Form.Item>
+              <Form.Item
+                {...tailLayout}
+              >
+                <Button type="primary" htmlType="submit">submit</Button>
+              </Form.Item>
+            </Form>
+          </section>
+          
         </Modal>
       </div>
     );

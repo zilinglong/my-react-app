@@ -9,3 +9,6 @@
 .btn-add {
   margin-left: 10px;
 }
+.form-container {
+  @include flex();
+}
