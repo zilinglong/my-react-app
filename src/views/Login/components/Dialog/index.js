@@ -19,7 +19,8 @@ class DialogCreateEdit extends Component {
     this.state = {
       visible: props.dialogVisible,
       type: props.type,
-      colorList: ['red', 'green', 'blue']
+      colorList: ['red', 'green', 'blue'], // 颜色列表
+      countryList: ['China', 'USA']
     };
   }
   // const [visible, setVisible] = React.useState(false);
@@ -69,6 +70,11 @@ class DialogCreateEdit extends Component {
       'note': 'hello'
     });
   }
+  // 下拉国家改变
+  onChangeCountry = (value) => {
+    console.log('onChangeCountry value:', value);
+    this.form.current.setFieldsValue({note: `hello ${value}`});
+  }
   handleCancel = () => {
     console.log('handleCancel');
     this.setVisible(false);
@@ -83,7 +89,7 @@ class DialogCreateEdit extends Component {
   };
 
   render() {
-    const { visible, type, colorList } = this.state;
+    const { visible, type, colorList, countryList } = this.state;
     // // 设置label和表单区域占据的宽度
     const labelCol = 8;
     const formItemLayout = {
@@ -142,7 +148,7 @@ class DialogCreateEdit extends Component {
                   },
                 ]}
               >
-          <Input />
+          <Input placeholder="请输入note值" />
         </Form.Item>
               <Form.Item
                 name="select-country"
@@ -155,9 +161,8 @@ class DialogCreateEdit extends Component {
                   },
                 ]}
               >
-                <Select placeholder="Please select a country">
-                  <Option value="china">China</Option>
-                  <Option value="usa">U.S.A</Option>
+                <Select placeholder="Please select a country" onChange={this.onChangeCountry}>
+                  {countryList.map((item, idx) => <Option key={idx} value={item}>{item}</Option>)}
                 </Select>
               </Form.Item>
 
@@ -174,9 +179,6 @@ class DialogCreateEdit extends Component {
               >
                 <Select mode="multiple" placeholder="Please select favourite colors">
                   {colorList.map((color,idx) => <Option key={idx} value={color}>{color}</Option>)}
-                  {/* <Option value="red">Red</Option>
-                  <Option value="green">Green</Option>
-                  <Option value="blue">Blue</Option> */}
                 </Select>
               </Form.Item>
 
