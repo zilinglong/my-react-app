@@ -181,12 +181,23 @@ class DialogCreateEdit extends Component {
                   {colorList.map((color,idx) => <Option key={idx} value={color}>{color}</Option>)}
                 </Select>
               </Form.Item>
-
-              <Form.Item label="InputNumber">
-                <Form.Item name="input-number" noStyle>
-                  <InputNumber min={1} max={10} />
-                </Form.Item>
-                <span className="ant-form-text"> machines</span>
+              <Form.Item
+                noStyle
+                shouldUpdate={(prev, cur) => prev['select-country']!==cur['select-country']}
+              >
+                {
+                  ({getFieldValue}) => {
+                    return getFieldValue('select-country') === 'China' ? 
+                    (
+                    <Form.Item label="InputNumber">
+                      <Form.Item name="input-number" noStyle>
+                        <InputNumber min={1} max={10} />
+                      </Form.Item>
+                      <span className="ant-form-text"> machines</span>
+                    </Form.Item>
+                  ):null
+                  }
+                }
               </Form.Item>
 
               <Form.Item name="switch" label="Switch" valuePropName="checked">
