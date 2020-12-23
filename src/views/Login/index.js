@@ -15,23 +15,20 @@ class Login extends Component {
         {
           key: 0,
           name: 'John Brown',
-          age: 32,
-          address: 'New York No. 1 Lake Park',
-          tags: ['nice', 'developer'],
+          country: 32,
+          colors: ['nice', 'developer'],
         },
         {
           key: 1,
           name: 'Jim Green',
-          age: 42,
-          address: 'London No. 1 Lake Park',
-          tags: ['loser'],
+          country: 42,
+          colors: ['loser'],
         },
         {
           key: 2,
           name: 'Joe Black',
-          age: 32,
-          address: 'Sidney No. 1 Lake Park',
-          tags: ['cool', 'teacher'],
+          country: 32,
+          colors: ['cool', 'teacher'],
         }
       ]
     };
@@ -80,22 +77,17 @@ class Login extends Component {
         key: 'name'
       },
       {
-        title: 'Age',
-        dataIndex: 'age',
-        key: 'age',
+        title: 'country',
+        dataIndex: 'country',
+        key: 'country',
       },
       {
-        title: 'Address',
-        dataIndex: 'address',
-        key: 'address',
-      },
-      {
-        title: 'Tags',
-        dataIndex: 'tags',
-        key: 'tags',
-        render: tags => (
+        title: 'colors',
+        dataIndex: 'colors',
+        key: 'colors',
+        render: colors => (
           <>
-            {tags.map(tag => {
+            {colors.map(tag => {
               // 某个单词的长度大于5，则蓝色，否则绿色；如果是loser，则是红色
               let color = tag.length > 5 ? '#00f' : '#0f0';
               if (tag === 'loser') {

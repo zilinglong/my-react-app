@@ -19,7 +19,7 @@ class DialogCreateEdit extends Component {
     this.state = {
       visible: props.dialogVisible,
       type: props.type,
-      colorList: ['red', 'green', 'blue'], // 颜色列表
+      colorList: ['red', 'green', 'blue', 'yelloww'], // 颜色列表
       countryList: ['China', 'USA']
     };
   }
@@ -64,16 +64,16 @@ class DialogCreateEdit extends Component {
       ['checkbox-group']: ['A', 'B'],
       rate: 3.5,
       slider: 12,
-      'select-country': 'china',
+      'country': 'china',
       'select-multiple': ['red'],
       'radio-button': 'b',
-      'note': 'hello'
+      'name': 'hello'
     });
   }
   // 下拉国家改变
   onChangeCountry = (value) => {
     console.log('onChangeCountry value:', value);
-    this.form.current.setFieldsValue({note: `hello ${value}`});
+    this.form.current.setFieldsValue({name: `hello ${value}`});
   }
   handleCancel = () => {
     console.log('handleCancel');
@@ -130,29 +130,29 @@ class DialogCreateEdit extends Component {
               //   ['checkbox-group']: ['A', 'B'],
               //   rate: 3.5,
               //   slider: 12,
-              //   'select-country': 'china',
+              //   'country': 'china',
               //   'select-multiple': ['red'],
               //   'radio-button': 'b',
-              //   'note': 'hello'
+              //   'name': 'hello'
               // }}
             >
               <Form.Item label="Plain Text">
                 <span className="ant-form-text">China</span>
               </Form.Item>
               <Form.Item
-                name="note"
-                label="Note"
+                name="name"
+                label="name"
                 rules={[
                   {
                     required: true,
                   },
                 ]}
               >
-          <Input placeholder="请输入note值" />
+          <Input placeholder="请输入name值" />
         </Form.Item>
               <Form.Item
-                name="select-country"
-                label="Select"
+                name="country"
+                label="Country"
                 hasFeedback
                 rules={[
                   {
@@ -183,11 +183,11 @@ class DialogCreateEdit extends Component {
               </Form.Item>
               <Form.Item
                 noStyle
-                shouldUpdate={(prev, cur) => prev['select-country']!==cur['select-country']}
+                shouldUpdate={(prev, cur) => prev['country']!==cur['country']}
               >
                 {
                   ({getFieldValue}) => {
-                    return getFieldValue('select-country') === 'China' ? 
+                    return getFieldValue('country') === 'China' ? 
                     (
                     <Form.Item label="InputNumber">
                       <Form.Item name="input-number" noStyle>
