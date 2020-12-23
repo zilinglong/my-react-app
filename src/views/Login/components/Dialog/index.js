@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 // import { Modal, Button, Form, Select, Input } from 'antd';
-import { Modal, Form, Select, InputNumber, Switch, Radio,  Slider, Button, Upload, Rate, Checkbox, Row, Col, Space } from 'antd';
+import { Modal, Form, Select, InputNumber, Switch, Radio,  Slider, Button, Upload, Rate, Checkbox, Row, Col, Space, Input } from 'antd';
 import { UploadOutlined, InboxOutlined } from '@ant-design/icons';
 const { Option } = Select;
 
@@ -65,7 +65,8 @@ class DialogCreateEdit extends Component {
       slider: 12,
       'select-country': 'china',
       'select-multiple': ['red'],
-      'radio-button': 'b'
+      'radio-button': 'b',
+      'note': 'hello'
     });
   }
   handleCancel = () => {
@@ -125,12 +126,24 @@ class DialogCreateEdit extends Component {
               //   slider: 12,
               //   'select-country': 'china',
               //   'select-multiple': ['red'],
-              //   'radio-button': 'b'
+              //   'radio-button': 'b',
+              //   'note': 'hello'
               // }}
             >
               <Form.Item label="Plain Text">
                 <span className="ant-form-text">China</span>
               </Form.Item>
+              <Form.Item
+                name="note"
+                label="Note"
+                rules={[
+                  {
+                    required: true,
+                  },
+                ]}
+              >
+          <Input />
+        </Form.Item>
               <Form.Item
                 name="select-country"
                 label="Select"
