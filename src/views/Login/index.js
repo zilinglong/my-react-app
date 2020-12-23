@@ -72,7 +72,7 @@ class Login extends Component {
   render() {   
     const columns = [
       {
-        title: 'Name',
+        title: 'name',
         dataIndex: 'name',
         key: 'name'
       },

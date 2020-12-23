@@ -152,7 +152,7 @@ class DialogCreateEdit extends Component {
         </Form.Item>
               <Form.Item
                 name="country"
-                label="Country"
+                label="country"
                 hasFeedback
                 rules={[
                   {
