@@ -38,8 +38,11 @@ class DialogCreateEdit extends Component {
       type: nextProps.type,
       curRowData: nextProps.curRowData
     }, () => {
-      console.log('nextProps then:', this.state.curRowData);
-      this.onFill(this.state.curRowData);
+      const { type } = this.state;
+      if (type === 'edit') {
+        console.log('nextProps then:', this.state.curRowData);
+        this.onFill(this.state.curRowData);
+      }
     });
   }
   setVisible = (value) => {
@@ -47,9 +50,6 @@ class DialogCreateEdit extends Component {
       visible: value
     });
     this.onReset();
-  };
-  showModal = () => {
-    this.setVisible(true);
   };
   handleOk = async () => {
     console.log('handleOk');
@@ -91,14 +91,6 @@ class DialogCreateEdit extends Component {
     console.log('handleCancel');
     this.setVisible(false);
   };
-  
-  onFinish = values => {
-    console.log('Success:', values);
-  };
-
-  onFinishFailed = errorInfo => {
-    console.log('Failed:', errorInfo);
-  };
 
   render() {
     const { visible, type, colorList, countryList } = this.state;
@@ -120,9 +112,6 @@ class DialogCreateEdit extends Component {
     };
     return (
       <div>
-        <Button type="primary" onClick={this.showModal}>
-          打开弹窗
-        </Button>
         <Modal
           title={`${type === 'create' ? '新增' : '编辑'}数据`}
           visible={visible}
@@ -138,7 +127,6 @@ class DialogCreateEdit extends Component {
               ref={this.form}
               name="validate_other"
               {...formItemLayout}
-              onFinish={this.onFinish}
               preserve={false}
               // initialValues={{
               //   ['input-number']: 3,

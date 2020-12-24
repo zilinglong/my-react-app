@@ -45,7 +45,6 @@ class Login extends Component {
   }
   // 删除
   handleDelete(key) {
-    // console.log('handleDelete:key', key);
     this.setState({
       dataSource: [].concat(this.findById(key))
     });
