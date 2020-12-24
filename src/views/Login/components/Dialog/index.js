@@ -18,6 +18,7 @@ class DialogCreateEdit extends Component {
     this.state = {
       visible: props.dialogVisible,
       type: props.type,
+      curRowData: props.curRowData, // 当前数据
       colorList: ['red', 'green', 'blue', 'yelloww'], // 颜色列表
       countryList: ['China', 'USA']
     };
@@ -34,7 +35,11 @@ class DialogCreateEdit extends Component {
   componentWillReceiveProps(nextProps) {
     this.setState({
       visible: nextProps.dialogVisible,
-      type: nextProps.type
+      type: nextProps.type,
+      curRowData: nextProps.curRowData
+    }, () => {
+      console.log('nextProps then:', this.state.curRowData);
+      this.onFill(this.state.curRowData);
     });
   }
   setVisible = (value) => {
@@ -59,8 +64,8 @@ class DialogCreateEdit extends Component {
     this.form.current.resetFields();
   };
   // 填写数据
-  onFill = () => {
-    this.form.current.setFieldsValue({
+  onFill = (data) => {
+    const initialData = {
       ['input-number']: 3,
       ['checkbox-group']: ['A', 'B'],
       rate: 3.5,
@@ -69,7 +74,13 @@ class DialogCreateEdit extends Component {
       'colors': ['red'],
       'radio-button': 'b',
       'name': 'hello'
-    });
+    };
+    const { type } = this.state;
+    let value = initialData;
+    if (type === 'edit') {
+      value = data;
+    } 
+    this.form.current.setFieldsValue(value);
   }
   // 下拉国家改变
   onChangeCountry = (value) => {

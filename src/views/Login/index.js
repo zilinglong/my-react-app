@@ -11,6 +11,8 @@ class Login extends Component {
       count: 0,
       dialogVisible: false,
       type: '',
+      curRowData: {}, // 当前行数据
+      curIndex: 0, // 当前是第几行数据
       dataSource: [
         {
           key: 0,
@@ -43,7 +45,7 @@ class Login extends Component {
   }
   // 删除
   handleDelete(key) {
-    console.log('handleDelete:key', key);
+    // console.log('handleDelete:key', key);
     this.setState({
       dataSource: [].concat(this.findById(key))
     });
@@ -62,20 +64,32 @@ class Login extends Component {
     console.log('value:', value);
   }
   // 新增、编辑弹窗
-  handleCreateEdit(type) {
-    console.log('handleCreateEdit');
+  handleCreateEdit(type, record, idx) {
+    console.log('handleCreateEdit:type, record:', type, record, idx);
     this.setState({
       dialogVisible: true,
-      type: type
+      type: type,
+      curRowData: type === 'create' ? {} : record, 
+      curIndex: idx || 0
     });
   }
   // 子组件点击确定
   transMsg = (data) => {
     console.log('子组件点击确定:', data);
-    const { dataSource } = this.state;
-    this.setState({
-      dataSource: dataSource.concat([Object.assign(data, {key: dataSource.length + 1})])
-    });
+    const { dataSource, type, curIndex } = this.state;
+    if (type === 'create') {
+      // 新增
+      this.setState({
+        dataSource: dataSource.concat([Object.assign(data, {key: dataSource.length + 1})])
+      });
+    } else {
+      // 编辑
+      dataSource.splice(curIndex, 1, Object.assign(data, {key: curIndex}));
+      this.setState({
+        dataSource: [...dataSource]
+      });
+      // console.log('datas:', dataSource);
+    }
   };
   render() {   
     const columns = [
@@ -110,15 +124,15 @@ class Login extends Component {
       {
         title: 'Action',
         key: 'action',
-        render: (text, record) => (
+        render: (text, record, idx) => (
           <Space size="middle">
-            <a onClick={() => this.handleCreateEdit('edit')}>edit-{record.name}</a>
+            <a onClick={() => this.handleCreateEdit('edit', record, idx)}>edit-{record.name}</a>
             <a onClick={() => this.handleDelete(record.key)}>Delete</a>
           </Space>
         ),
       },
     ];
-    const { dialogVisible, type, dataSource, count } = this.state;
+    const { dialogVisible, type, dataSource, count, curRowData } = this.state;
     return (
       <div id="login">
 
@@ -134,7 +148,7 @@ class Login extends Component {
         <section>
           <Table dataSource={dataSource} columns={columns} rowKey={(item) => item.key}></Table>
         </section>
-        <DialogCreateEdit dialogVisible={dialogVisible} type={type} transMsg={this.transMsg}></DialogCreateEdit>
+        <DialogCreateEdit dialogVisible={dialogVisible} type={type} curRowData={curRowData} transMsg={this.transMsg}></DialogCreateEdit>
       </div>
     );
   }
