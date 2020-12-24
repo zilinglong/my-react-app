@@ -69,22 +69,30 @@ class Login extends Component {
       type: type
     });
   }
+  // 子组件点击确定
+  transMsg = (data) => {
+    console.log('子组件点击确定:', data);
+    const { dataSource } = this.state;
+    this.setState({
+      dataSource: dataSource.concat([Object.assign(data, {key: dataSource.length + 1})])
+    });
+  };
   render() {   
     const columns = [
       {
-        title: 'name',
-        dataIndex: 'name',
-        key: 'name'
+        title: 'name', // 表头展示
+        dataIndex: 'name', // 查找数据的标准
+        // key: 'name'
       },
       {
         title: 'country',
         dataIndex: 'country',
-        key: 'country',
+        // key: 'country',
       },
       {
         title: 'colors',
         dataIndex: 'colors',
-        key: 'colors',
+        // key: 'colors',
         render: colors => (
           <>
             {colors.map(tag => {
@@ -127,9 +135,9 @@ class Login extends Component {
         </section>
         
         <section>
-          <Table dataSource={dataSource} columns={columns}></Table>
+          <Table dataSource={dataSource} columns={columns} rowKey={(item) => item.key}></Table>
         </section>
-        <DialogCreateEdit dialogVisible={dialogVisible} type={type}></DialogCreateEdit>
+        <DialogCreateEdit dialogVisible={dialogVisible} type={type} transMsg={this.transMsg}></DialogCreateEdit>
       </div>
     );
   }

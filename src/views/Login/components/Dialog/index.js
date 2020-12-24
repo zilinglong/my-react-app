@@ -32,11 +32,14 @@ class DialogCreateEdit extends Component {
   }
   // 父组件中元素更新，子组件中元素随之也更新
   componentWillReceiveProps(nextProps) {
+    // 弹窗显示，form清空
+    // this.onReset();
     this.setState({
       visible: nextProps.dialogVisible,
       type: nextProps.type
     });
   }
+  form = React.createRef();
   setVisible = (value) => {
     this.setState({
       visible: value
@@ -44,13 +47,14 @@ class DialogCreateEdit extends Component {
   };
   showModal = () => {
     this.setVisible(true);
+    // this.onReset();
   };
-  form = React.createRef();
   handleOk = async () => {
     console.log('handleOk');
     const fieldsValue = await this.form.current.validateFields(); 
     //fieldsValue即为表单内的值
     console.log("okHandle -> fieldsValue", fieldsValue)
+    this.props.transMsg(fieldsValue);
     this.setVisible(false);
   };
   // 清空
@@ -65,7 +69,7 @@ class DialogCreateEdit extends Component {
       rate: 3.5,
       slider: 12,
       'country': 'china',
-      'select-multiple': ['red'],
+      'colors': ['red'],
       'radio-button': 'b',
       'name': 'hello'
     });
@@ -131,7 +135,7 @@ class DialogCreateEdit extends Component {
               //   rate: 3.5,
               //   slider: 12,
               //   'country': 'china',
-              //   'select-multiple': ['red'],
+              //   'colors': ['red'],
               //   'radio-button': 'b',
               //   'name': 'hello'
               // }}
@@ -167,7 +171,7 @@ class DialogCreateEdit extends Component {
               </Form.Item>
 
               <Form.Item
-                name="select-multiple"
+                name="colors"
                 label="Select[multiple]"
                 rules={[
                   {
