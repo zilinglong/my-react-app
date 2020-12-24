@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-// import { Modal, Button, Form, Select, Input } from 'antd';
 import { Modal, Form, Select, InputNumber, Switch, Radio,  Slider, Button, Upload, Rate, Checkbox, Row, Col, Space, Input } from 'antd';
 import { UploadOutlined, InboxOutlined } from '@ant-design/icons';
 const { Option } = Select;
@@ -23,6 +22,7 @@ class DialogCreateEdit extends Component {
       countryList: ['China', 'USA']
     };
   }
+  form = React.createRef();
   // const [visible, setVisible] = React.useState(false);
   // const [confirmLoading, setConfirmLoading] = React.useState(false);
   // const [modalText, setModalText] = React.useState('Content of the modal');
@@ -32,22 +32,19 @@ class DialogCreateEdit extends Component {
   }
   // 父组件中元素更新，子组件中元素随之也更新
   componentWillReceiveProps(nextProps) {
-    // 弹窗显示，form清空
-    // this.onReset();
     this.setState({
       visible: nextProps.dialogVisible,
       type: nextProps.type
     });
   }
-  form = React.createRef();
   setVisible = (value) => {
     this.setState({
       visible: value
     });
+    this.onReset();
   };
   showModal = () => {
     this.setVisible(true);
-    // this.onReset();
   };
   handleOk = async () => {
     console.log('handleOk');
@@ -94,7 +91,7 @@ class DialogCreateEdit extends Component {
 
   render() {
     const { visible, type, colorList, countryList } = this.state;
-    // // 设置label和表单区域占据的宽度
+    // 设置label和表单区域占据的宽度
     const labelCol = 8;
     const formItemLayout = {
       labelCol: {
@@ -118,6 +115,8 @@ class DialogCreateEdit extends Component {
         <Modal
           title={`${type === 'create' ? '新增' : '编辑'}数据`}
           visible={visible}
+          // 与 <Form />配合使用时， Modal 关闭时销毁表单字段数据，需要设置 <Form preserve={false} /> 但不能设置 destroyOnClose 为 true
+          destroyOnClose={false} 
           onOk={this.handleOk}
           onCancel={this.handleCancel}
           cancelText="取消"
@@ -129,6 +128,7 @@ class DialogCreateEdit extends Component {
               name="validate_other"
               {...formItemLayout}
               onFinish={this.onFinish}
+              preserve={false}
               // initialValues={{
               //   ['input-number']: 3,
               //   ['checkbox-group']: ['A', 'B'],

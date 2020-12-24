@@ -81,18 +81,15 @@ class Login extends Component {
     const columns = [
       {
         title: 'name', // 表头展示
-        dataIndex: 'name', // 查找数据的标准
-        // key: 'name'
+        dataIndex: 'name' // 查找数据的标准
       },
       {
         title: 'country',
-        dataIndex: 'country',
-        // key: 'country',
+        dataIndex: 'country'
       },
       {
         title: 'colors',
         dataIndex: 'colors',
-        // key: 'colors',
         render: colors => (
           <>
             {colors.map(tag => {
