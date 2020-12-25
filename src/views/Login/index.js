@@ -122,7 +122,6 @@ class Login extends Component {
       },
       {
         title: 'Action',
-        key: 'action',
         render: (text, record, idx) => (
           <Space size="middle">
             <a onClick={() => this.handleCreateEdit('edit', record, idx)}>edit-{record.name}</a>
